@@ -1,7 +1,0 @@
-# Keep the published tarball to built JavaScript (and its maps, icons and
-# the node codex JSON). Declarations are redundant at run time and the
-# tsbuildinfo cache is a local build artifact.
-dist/**/*.d.ts
-dist/package.json
-tsconfig.tsbuildinfo
-node_modules
