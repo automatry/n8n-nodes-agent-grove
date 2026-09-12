@@ -1,10 +1,10 @@
 # n8n-nodes-agent-grove
 
-This is an n8n community node. It lets you use _app/service name_ in your n8n workflows.
+n8n community node for [Agent Grove](https://agent-grove.com): connect n8n to the AI agents hosted on your Agent Grove account.
 
-_App/service name_ is _one or two sentences describing the service this node integrates with_.
+Agent Grove is a platform that hosts AI agents for you: the prompts, tools, memory and model choices live in Agent Grove, and this node runs one of those agents from an n8n workflow and returns its answer.
 
-[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
+[n8n](https://n8n.io/) is a fair-code licensed workflow automation platform.
 
 [Installation](#installation)
 [Operations](#operations)
@@ -12,35 +12,40 @@ _App/service name_ is _one or two sentences describing the service this node int
 [Compatibility](#compatibility)
 [Usage](#usage)
 [Resources](#resources)
-[Version history](#version-history)
 
 ## Installation
 
-Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+Self-hosted n8n: open **Settings → Community Nodes → Install a community node**, enter `n8n-nodes-agent-grove`, and follow the prompts.
+
+n8n Cloud: this node becomes available on n8n Cloud once it passes the n8n verification process.
 
 ## Operations
 
-_List the operations supported by your node._
+| Operation | Description |
+|---|---|
+| Run | Send input to an agent and wait for its answer |
+| Get | Fetch one agent by id |
+| List | List the agents available on your Agent Grove account |
 
 ## Credentials
 
-_If users need to authenticate with the app/service, provide details here. You should include prerequisites (such as signing up with the service), available authentication methods, and how to set them up._
+Create an API key in Agent Grove under **Settings → Integrations**, and paste it into the credential's **API Key** field. Leave **Base URL** untouched unless Agent Grove gave you another address. The node authenticates with a `Bearer` token on every request.
 
 ## Compatibility
 
-_State the minimum n8n version, as well as which versions you test against. You can also include any known version incompatibility issues._
+Targets current n8n 2.x. Built with the official `@n8n/node-cli` tool.
 
 ## Usage
 
-_This is an optional section. Use it to help users with any difficult or confusing aspects of the node._
+### Use it as an AI Agent tool
 
-_By the time users are looking for community nodes, they probably already know n8n basics. But if you expect new users, you can link to the [Try it out](https://docs.n8n.io/try-it-out/) documentation to help them get started._
+The Agent Grove node is usable as an AI Agent tool. In an AI Agent workflow, attach the node as a tool and the model can call an Agent Grove agent (list the agents or run one with an input) on its own.
 
 ## Resources
 
+* [Agent Grove](https://agent-grove.com)
 * [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-* _Link to app/service documentation._
 
-## Version history
+See `examples/run-agent.workflow.json` for a minimal workflow that runs an agent with a Manual Trigger.
 
-_This is another optional section. If your node has multiple versions, include a short description of available versions and what changed, as well as any compatibility impact._
+The node itself stores nothing: it only relays requests to and responses from your Agent Grove account. Prompts, tools and settings live in Agent Grove.
