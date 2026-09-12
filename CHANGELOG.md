@@ -2,6 +2,8 @@
 
 ## 0.1.0 — 2026-09-12
 
+First public release.
+
 Initial release of the Agent Grove community node for n8n.
 
 - Agent Grove credential: API key and base URL, with a connection test.
