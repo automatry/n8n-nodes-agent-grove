@@ -17,7 +17,9 @@ Agent Grove is a platform that hosts AI agents for you: the prompts, tools, memo
 
 Self-hosted n8n: open **Settings → Community Nodes → Install a community node**, enter `n8n-nodes-agent-grove`, and follow the prompts.
 
-n8n Cloud: this node becomes available on n8n Cloud once it passes the n8n verification process.
+### n8n Cloud vs self-hosted
+
+Verified community nodes can be installed on n8n Cloud by instance owners and admins from the nodes panel; unverified community nodes are not available on n8n Cloud and require self-hosting n8n. This node becomes Cloud-installable once it passes the n8n verification process; until then it can be installed on any self-hosted n8n instance via the steps above.
 
 ## Operations
 
@@ -36,6 +38,10 @@ Create an API key in Agent Grove under **Settings → Integrations**, and paste 
 Targets current n8n 2.x. Built with the official `@n8n/node-cli` tool.
 
 ## Usage
+
+### Example: run an agent on a Manual Trigger
+
+A minimal workflow that runs an agent with a Manual Trigger ships in `examples/run-agent.workflow.json`. In short: a Manual Trigger node feeds an Agent Grove node set to the **Run** operation, with the agent name picked from the credential's agent list and a prompt expression such as `{{ $json.query }}` in the **Input** field. Executing the workflow returns each agent answer as a JSON item.
 
 ### Use it as an AI Agent tool
 
