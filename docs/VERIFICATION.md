@@ -26,9 +26,9 @@ done yet is marked **TODO** with the owner.
 | 3 | Built with the n8n-node tool; automated checks pass | Built with `@n8n/node-cli` 0.48.2 (`npm run build`), lint + tests pass | OK |
 | 4 | No external runtime dependencies | No `dependencies` in package.json; HTTP via `helpers.httpRequestWithAuthentication`; copied by the linter's `no-runtime-dependencies` rule | OK |
 | 5 | No env-var or filesystem access in node code; data via parameters | Node reads only credential + node parameters | OK |
-| 6 | npm repository URL matches expected repo; repo public; author/maintainer consistent | `repository` = https://github.com/automatry/n8n-nodes-agent-grove.git; author "Automatry Ltd" | **TODO (Rich: make repo public before npm publish)** |
+| 6 | npm repository URL matches expected repo; repo public; author/maintainer consistent | `repository` = https://github.com/automatry/n8n-nodes-agent-grove.git; author "Automatry Ltd" | OK (npm user `automatry`; repo `automatry/n8n-nodes-agent-grove` public)|
 | 7 | License must be MIT | `license: "MIT"`, LICENSE file MIT | OK |
-| 8 | Published from GitHub Actions with provenance (mandatory from May 1 2026) | `.github/workflows/publish.yml` ships in the package (run `npm run release` to bump/tag/push; the workflow publishes) | OK (config) / **TODO (Rich: npm Trusted Publishers config — see below)** |
+| 8 | Published from GitHub Actions with provenance (mandatory from May 1 2026) | `.github/workflows/publish.yml` ships in the package (run `npm run release` to bump/tag/push; the workflow publishes) | OK (config) / publish.yml via GitHub Actions on release tags (Trusted Publishers config shown below)|
 | 9 | README/documentation with usage, examples, auth details | README.md ships in the tarball; `examples/run-agent.workflow.json` | OK |
 | 10 | Error handling, validation, TypeScript, lint | `NodeApiError`/`NodeOperationError` in node code; strict TS; `npm run lint` 0 | OK |
 | 11 | UX guidelines | Node in idiomatic n8n shape (dropdown, resource/operation pattern) | OK (per guideline reading; final judgment is n8n's) |

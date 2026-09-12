@@ -17,6 +17,8 @@ Agent Grove is a platform that hosts AI agents for you: the prompts, tools, memo
 
 Self-hosted n8n: open **Settings → Community Nodes → Install a community node**, enter `n8n-nodes-agent-grove`, and follow the prompts.
 
+Published by Automatry Ltd (npm user `automatry`).
+
 ### n8n Cloud vs self-hosted
 
 Verified community nodes can be installed on n8n Cloud by instance owners and admins from the nodes panel; unverified community nodes are not available on n8n Cloud and require self-hosting n8n. This node becomes Cloud-installable once it passes the n8n verification process; until then it can be installed on any self-hosted n8n instance via the steps above.
