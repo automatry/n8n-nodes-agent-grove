@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 — 2026-09-12
+
+Re-publish of 0.1.0 from GitHub Actions with an npm provenance attestation
+(required for n8n Cloud verification). No functional changes.
+
 ## 0.1.0 — 2026-09-12
 
 First public release.

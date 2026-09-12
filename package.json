@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-agent-grove",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n community node for Agent Grove: run the AI agents hosted on your Agent Grove account",
 	"license": "MIT",
 	"homepage": "https://agent-grove.com",
