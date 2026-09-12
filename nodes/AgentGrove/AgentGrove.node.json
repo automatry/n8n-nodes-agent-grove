@@ -1,0 +1,12 @@
+{
+	"node": "agentGrove",
+	"n8n": {
+		"n8nNodesApiVersion": 1
+	},
+	"categories": ["AI"],
+	"resources": {
+		"primaryDocumentation": {
+			"url": "https://github.com/automatry/n8n-nodes-agent-grove#readme"
+		}
+	}
+}
