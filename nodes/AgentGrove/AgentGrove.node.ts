@@ -1,10 +1,13 @@
 import type {
 	IExecuteFunctions,
 	ILoadOptionsFunctions,
+	ILoadOptionsFunctions,
 	INodeExecutionData,
 	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
+} from 'n8n-workflow';
+import type { JsonObject, IHttpRequestMethods, IDataObject } from 'n8n-workflow';
 } from 'n8n-workflow';
 import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
@@ -30,7 +33,7 @@ function stripTrailingSlash(url: string): string {
 	return url.replace(/\/+$/, '');
 }
 
-function simplifyRun(body: AgentRunResponse): Record<string, unknown> {
+function simplifyRun(body: AgentRunResponse): IDataObject {
 	return {
 		text: body.output?.text ?? '',
 		runId: body.runId,
@@ -44,7 +47,7 @@ function simplifyRun(body: AgentRunResponse): Record<string, unknown> {
 async function request(
 	context: IExecuteFunctions | ILoadOptionsFunctions,
 	credential: { baseUrl: string },
-	options: { method: string; url: string; body?: unknown; timeout?: number },
+	options: { method: IHttpRequestMethods; url: string; body?: unknown; timeout?: number },
 ): Promise<unknown> {
 	return await context.helpers.httpRequestWithAuthentication.call(context, 'agentGroveApi', {
 		method: options.method,
@@ -96,7 +99,7 @@ export class AgentGrove implements INodeType {
 						name: 'Get',
 						value: 'get',
 						action: 'Get an agent',
-						description: 'Get one agent by id',
+						description: 'Get one agent by ID',
 					},
 					{
 						name: 'List',
@@ -106,21 +109,21 @@ export class AgentGrove implements INodeType {
 					},
 				],
 				default: 'run',
-				description: 'The operation to perform',
 			},
 			{
-				displayName: 'Agent',
+				displayName: 'Agent Name or ID',
 				name: 'agentId',
 				type: 'options',
 				typeOptions: { loadOptionsMethod: 'getAgents' },
 				required: true,
+				default: '',
 				displayOptions: {
 					show: {
 						resource: ['agent'],
 						operation: ['run', 'get'],
 					},
 				},
-				description: 'The agent to run. Agents are listed from your Agent Grove account.',
+				description: 'The agent to run. Agents are listed from your Agent Grove account. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Input',
@@ -128,6 +131,7 @@ export class AgentGrove implements INodeType {
 				type: 'string',
 				typeOptions: { rows: 4 },
 				required: true,
+				default: '',
 				displayOptions: {
 					show: {
 						resource: ['agent'],
@@ -140,7 +144,7 @@ export class AgentGrove implements INodeType {
 				displayName: 'Session ID',
 				name: 'sessionId',
 				type: 'string',
-				required: false,
+				default: '',
 				displayOptions: {
 					show: {
 						resource: ['agent'],
@@ -154,7 +158,6 @@ export class AgentGrove implements INodeType {
 				displayName: 'Options',
 				name: 'options',
 				type: 'collection',
-				required: false,
 				default: {},
 				displayOptions: {
 					show: {
@@ -193,7 +196,7 @@ export class AgentGrove implements INodeType {
 						type: 'boolean',
 						default: true,
 						description:
-							'Return only the answer text and run identifiers instead of the full response',
+							'Whether to return only the answer text and run identifiers instead of the full response',
 					},
 				],
 			},
@@ -257,14 +260,16 @@ export class AgentGrove implements INodeType {
 						timeout: 120000,
 					})) as AgentRunResponse;
 					const json =
-						options.simplify === false ? (response as Record<string, unknown>) : simplifyRun(response);
+						options.simplify === false
+							? (response as unknown as IDataObject)
+							: simplifyRun(response);
 					returnData.push({ json, pairedItem: { item: itemIndex } });
 				} else if (operation === 'get') {
 					const agentId = this.getNodeParameter('agentId', itemIndex) as string;
 					const response = (await request(this, credential, {
 						method: 'GET',
 						url: `/api/v1/agents/${agentId}`,
-					})) as Record<string, unknown>;
+					})) as unknown as IDataObject;
 					returnData.push({ json: response, pairedItem: { item: itemIndex } });
 				} else {
 					const response = (await request(this, credential, {
@@ -272,7 +277,10 @@ export class AgentGrove implements INodeType {
 						url: '/api/v1/agents',
 					})) as AgentListResponse;
 					for (const agent of response.agents ?? []) {
-						returnData.push({ json: agent as unknown as object, pairedItem: { item: itemIndex } });
+						returnData.push({
+							json: agent as unknown as IDataObject,
+							pairedItem: { item: itemIndex },
+						});
 					}
 				}
 			} catch (error) {
@@ -284,7 +292,7 @@ export class AgentGrove implements INodeType {
 					continue;
 				}
 				if ((error as { httpCode?: string }).httpCode !== undefined) {
-					throw new NodeApiError(this.getNode(), error as object, { itemIndex });
+					throw new NodeApiError(this.getNode(), error as unknown as JsonObject, { itemIndex });
 				}
 				throw new NodeOperationError(this.getNode(), error as Error, { itemIndex });
 			}

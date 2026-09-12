@@ -3,6 +3,7 @@ import type {
 	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
+	Icon,
 } from 'n8n-workflow';
 
 export class AgentGroveApi implements ICredentialType {
@@ -12,7 +13,7 @@ export class AgentGroveApi implements ICredentialType {
 
 	documentationUrl = 'https://github.com/automatry/n8n-nodes-agent-grove#readme';
 
-	icon: { light: string; dark: string } = {
+	icon: Icon = {
 		light: 'file:../icons/agent-grove.svg',
 		dark: 'file:../icons/agent-grove.dark.svg',
 	};
