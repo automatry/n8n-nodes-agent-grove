@@ -27,7 +27,10 @@
 		"test": "node --test test/*.test.mjs"
 	},
 	"files": [
-		"dist"
+		"dist/**/*.js",
+		"dist/**/*.js.map",
+		"dist/**/*.svg",
+		"dist/nodes/**/*.json"
 	],
 	"n8n": {
 		"n8nNodesApiVersion": 1,
