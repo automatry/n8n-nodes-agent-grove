@@ -4,6 +4,9 @@
 	"description": "n8n community node for Agent Grove: run the AI agents hosted on your Agent Grove account",
 	"license": "MIT",
 	"homepage": "https://agent-grove.com",
+	"bugs": {
+		"url": "https://github.com/automatry/n8n-nodes-agent-grove/issues"
+	},
 	"keywords": [
 		"n8n-community-node-package"
 	],
