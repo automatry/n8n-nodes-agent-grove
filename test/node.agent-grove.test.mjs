@@ -93,7 +93,7 @@ test('agent grove node against mock connect api', async (t) => {
 			parameters: { agentId: 'missing', input: 'hi', options: {} },
 		});
 		const [result] = await node.execute.call(tolerant);
-		assert.ok(result[0].json.error.includes('agent_not_found'));
+		assert.equal(result[0].json.error, 'No such agent');
 		assert.deepEqual(result[0].pairedItem, { item: 0 });
 	});
 

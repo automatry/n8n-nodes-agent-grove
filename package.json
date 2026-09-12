@@ -24,7 +24,7 @@
 		"lint:fix": "n8n-node lint --fix",
 		"release": "n8n-node release",
 		"prepublishOnly": "n8n-node prerelease",
-		"test": "node --test test/"
+		"test": "node --test test/*.test.mjs"
 	},
 	"files": [
 		"dist"

@@ -1,13 +1,13 @@
 import type {
 	IExecuteFunctions,
 	ILoadOptionsFunctions,
-	ILoadOptionsFunctions,
 	INodeExecutionData,
 	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
-} from 'n8n-workflow';
-import type { JsonObject, IHttpRequestMethods, IDataObject } from 'n8n-workflow';
+	IHttpRequestMethods,
+	IDataObject,
+	JsonObject,
 } from 'n8n-workflow';
 import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
